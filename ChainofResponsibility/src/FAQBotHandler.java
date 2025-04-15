@@ -12,9 +12,9 @@ public class FAQBotHandler implements SupportHandler {
         if ("password_reset".equals(issue)) {
             Logger.getInstance().log("[FAQBot] Handled " + issue);
         } else if (nextHandler != null) {
-            nextHandler.handle(issue);
+            nextHandler.handle(issue);// Pass the request to the next handler
         } else {
-            Logger.getInstance().log("[FAQBot] Cannot handle " + issue + " — escalate manually");
+            Logger.getInstance().log("[FAQBot] Cannot handle " + issue + " — escalate manually");// If the chain is complete and the request is not processed, display a message
         }
     }
 }
