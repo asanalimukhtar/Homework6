@@ -1,15 +1,16 @@
+//CommandDemo is the client code which simulates a smart home remote control.It uses a simple CLI menu with if/else to let the user choose commands
 import java.util.Scanner;
 
 public class CommandDemo {
     public static void main(String[] args) {
-        SmartHomeRemoteControl remote = new SmartHomeRemoteControl();
-        Light livingRoomLight = new Light();
+        SmartHomeRemoteControl remote = new SmartHomeRemoteControl();// Create the remote control (invoker)
+        Light livingRoomLight = new Light();// Create devices (receivers)
         Thermostat thermostat = new Thermostat();
         Command turnOnLight = new TurnOnLightCommand(livingRoomLight);
         Command setThermostat = new SetThermostatCommand(thermostat, 22);
         Command turnOffLight = new TurnOffLightCommand(livingRoomLight);
-        MacroCommand goodNightMode = new MacroCommand();
-        Command lowerThermostat = new SetThermostatCommand(thermostat, 18);
+        MacroCommand goodNightMode = new MacroCommand();// In Goodnight mode, we turn off the light and lower the thermostat (e.g., to 18°C)
+        Command lowerThermostat = new SetThermostatCommand(thermostat, 18);// Create command objects to control the devices
         goodNightMode.addCommand(turnOffLight);
         goodNightMode.addCommand(lowerThermostat);
         remote.setCommand("light_on", turnOnLight);
@@ -27,7 +28,7 @@ public class CommandDemo {
             System.out.println("0: Exit");
             System.out.print("Enter your choice: ");
             String input = in.nextLine();
-            if (input.equals("1")) {
+            if (input.equals("1")) {// Process input using if/else statements
                 remote.pressButton("light_on");
             } else if (input.equals("2")) {
                 remote.pressButton("thermostat");
@@ -38,7 +39,7 @@ public class CommandDemo {
             } else if (input.equals("5")) {
                 remote.redoButton();
             } else if (input.equals("0")) {
-                run = false;
+                run = false;// Exit the menu loop
             } else {
                 System.out.println("Invalid choice. Please try again.");
             }
